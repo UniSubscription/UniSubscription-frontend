@@ -1,0 +1,8 @@
+.subsCard{
+    @media(max-width: 768px){
+        width: calc(100% / 2 - 20px);
+    }
+    @media(max-width: 576px){
+        width: calc(100% - 20px);
+    }
+}

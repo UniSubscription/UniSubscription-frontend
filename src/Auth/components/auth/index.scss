@@ -2,11 +2,10 @@ body {
   background: #ffefba;
   background: -webkit-linear-gradient(to right, #ffefba, #ffffff);
   background: linear-gradient(to right, #fff1c4, #ffffff);
-  padding: 0 20px;
 }
 
 .box {
-  width: 100%;
+  width: calc(100% - 40px);
   min-height: 350px;
   max-width: 600px;
   border-radius: 10px;
@@ -25,7 +24,6 @@ body {
 .photo-box {
   width: 50%;
   height: 100%;
-
   
   @media(max-width: 767.98px){
     display: none;
