@@ -1,13 +1,14 @@
 import { Action } from "../actions/actionsType";
 import { SUBSCRIPTION_ACTIONS } from "../actions/consts";
+import { ISubscriptionInitialState } from "../interface";
 
-const initialState = {
+const initialState: ISubscriptionInitialState = {
   status: "",
-  data: {},
+  data: null,
   errors: [],
 };
 
-export const roomsReducer = (state = initialState, action: Action) => {
+export const subscriptionReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case `${SUBSCRIPTION_ACTIONS.GET_SUBSCRIPTION}_PENDING`:
       return {

@@ -15,3 +15,19 @@ export interface IRegisterPayload {
   email: string;
   password: string;
 }
+
+export interface ILoginPayload {
+  email: string;
+  password: string;
+}
+
+export interface IUser {
+  id: number;
+  fullname: string;
+}
+
+export interface IAuthInitialState {
+  status: string;
+  data: IUser | null;
+  errors: [];
+}

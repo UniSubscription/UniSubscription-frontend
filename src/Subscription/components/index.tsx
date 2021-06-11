@@ -4,12 +4,12 @@ import {Navbar} from "../../Navbar";
 import { SubscriptionCard } from "./subscriptionCard";
 
 const useStyles = makeStyles({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      padding: '20px',
-    },
-  });
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    padding: "20px",
+  },
+});
 
 export const Subscription: React.FC = () => {
   const classes = useStyles();
@@ -18,11 +18,6 @@ export const Subscription: React.FC = () => {
     <div>
       <Navbar />
       <Box className={classes.root}>
-        <SubscriptionCard />
-        <SubscriptionCard />
-        <SubscriptionCard />
-        <SubscriptionCard />
-        <SubscriptionCard />
         <SubscriptionCard />
       </Box>
     </div>

@@ -1,13 +1,17 @@
 import { HttpClient } from "../httpClient";
-import { IRegisterPayload } from "./interface";
+import { ILoginPayload, IRegisterPayload } from "./interface";
 
 class AuthService extends HttpClient {
   constructor() {
-    super("https://60b2c58be0275c0017bfc74c.mockapi.io");
+    super("http://172.28.0.53:8080/api");
   }
 
-  async registerUser(newUser: IRegisterPayload) {
-    return this.post(`demo/v1/room/`, newUser);
+  async loginUser(newUser: ILoginPayload) {
+    return this.post(`authenticate`, newUser);
+  }
+
+  async registerUser(newUser: any) {
+    return this.post(`register`, newUser);
   }
 }
 

@@ -11,11 +11,9 @@ export const Auth: React.FC = () => {
         <img src={`${process.env.PUBLIC_URL}/login.jpg`} alt="Login" />
       </div>
       <div className="form-wrapper">
-        {/* <Route exact path="/user/"> */}
-          <Redirect to="/user/login" />
-        {/* </Route> */}
         <Route path="/user/register" component={RegisterForm} />
         <Route path="/user/login" component={LoginForm} />
+        <Redirect from="/" to="/user/login" />
       </div>
     </div>
   );
