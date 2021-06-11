@@ -14,7 +14,7 @@ export class HttpClient {
   async getAddHeafer(url: string) {
     return await axios.get(`${this.baseUrl}/${url}`, {
       headers: {
-        Authorization: `${sessionStorage.getItem("token")}`,
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
     });
   }
