@@ -56,9 +56,14 @@ export const UpdateSubscription = () => {
 
   return (
     <>
-      <Button size="small" variant="contained" color="primary" onClick={handleClickOpen}>
-          edit
-        </Button>
+      <Button
+        size="small"
+        variant="contained"
+        color="primary"
+        onClick={handleClickOpen}
+      >
+        edit
+      </Button>
       <Dialog
         className={classes.dialog}
         open={open}
@@ -69,66 +74,60 @@ export const UpdateSubscription = () => {
         <DialogTitle style={{ color: "#194949" }} id="alert-dialog-title">
           Add New Subscription
         </DialogTitle>
-        <DialogContent>
-          <form style={{ display: "flex", flexDirection: "column" }}>
-            <FormControl className={classes.formWrap}>
-              <InputLabel className={classes.label} htmlFor="add_company-name">
-                Company Name
-              </InputLabel>
-              <Input className={classes.input} id="add_company-name" />
-            </FormControl>
-            <FormControl className={classes.formWrap}>
-              <InputLabel className={classes.label} htmlFor="add_email">
-                Email address
-              </InputLabel>
-              <Input id="add_email" />
-            </FormControl>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                margin="normal"
-                id="sub_date"
-                label="Subscription date"
-                className={classes.label}
-                format="MM/dd/yyyy"
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-               <KeyboardDatePicker
-                margin="normal"
-                id="sub_date"
-                label="Next Billing date"
-                className={classes.label}
-                format="MM/dd/yyyy"
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-            <FormControl className={classes.formWrap}>
-              <InputLabel className={classes.label} htmlFor="add_amount">
-                Amount
-              </InputLabel>
-              <Input id="add_amount" />
-            </FormControl>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button type="submit" variant="contained" color="primary">
-            Update subscription
-          </Button>
-          <Button
-            variant="contained"
-            color="secondary"
-            autoFocus
-          >
-            Close
-          </Button>
-        </DialogActions>
+        <form style={{ display: "flex", flexDirection: "column", padding: "0 15px"}}>
+          <FormControl className={classes.formWrap}>
+            <InputLabel className={classes.label} htmlFor="add_company-name">
+              Company Name
+            </InputLabel>
+            <Input className={classes.input} id="add_company-name" />
+          </FormControl>
+          <FormControl className={classes.formWrap}>
+            <InputLabel className={classes.label} htmlFor="add_email">
+              Email address
+            </InputLabel>
+            <Input className={classes.input} id="add_email" />
+          </FormControl>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              margin="normal"
+              id="sub_date"
+              label="Subscription date"
+              className={classes.label}
+              format="MM/dd/yyyy"
+              value={selectedDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+            <KeyboardDatePicker
+              margin="normal"
+              id="sub_date"
+              label="Next Billing date"
+              className={classes.label}
+              format="MM/dd/yyyy"
+              value={selectedDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
+          <FormControl className={classes.formWrap}>
+            <InputLabel className={classes.label} htmlFor="add_amount">
+              Amount
+            </InputLabel>
+            <Input className={classes.input} id="add_amount" />
+          </FormControl>
+          <DialogActions>
+            <Button type="submit" variant="contained" color="primary">
+              Update subscription
+            </Button>
+            <Button variant="contained" color="secondary" autoFocus onClick={handleClose}>
+              Close
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );
