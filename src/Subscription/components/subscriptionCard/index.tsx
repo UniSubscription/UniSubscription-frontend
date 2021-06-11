@@ -12,10 +12,8 @@ import {
   ListItem,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import { UpdateSubscription } from "../../../updateSubscription";
+import { UpdateSubscription } from "../updateSubscription";
 import "./index.scss";
-// import SweetAlert from 'sweetalert-react';
-// import * as swal from 'sweetalert';
 
 const useStyles = makeStyles({
   root: {

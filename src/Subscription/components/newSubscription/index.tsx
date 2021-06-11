@@ -4,7 +4,6 @@ import {
   Button,
   Dialog,
   DialogTitle,
-  DialogContent,
   DialogActions,
   FormControl,
   InputLabel,
@@ -73,25 +72,23 @@ export const NewSubscription = () => {
           Add New Subscription
         </DialogTitle>
         <form
-          style={{ display: "flex", flexDirection: "column", padding: "0 15px" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "0 15px",
+          }}
         >
           <FormControl className={classes.formWrap}>
             <InputLabel className={classes.label} htmlFor="add_company-name">
               Company Name
             </InputLabel>
-            <Input
-              className={classes.input}
-              id="add_company-name"
-            />
+            <Input className={classes.input} id="add_company-name" />
           </FormControl>
           <FormControl className={classes.formWrap}>
             <InputLabel className={classes.label} htmlFor="add_email">
               Email address
             </InputLabel>
-            <Input 
-            id="add_email" 
-            className={classes.input}
-            />
+            <Input id="add_email" className={classes.input} />
           </FormControl>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
@@ -111,10 +108,7 @@ export const NewSubscription = () => {
             <InputLabel className={classes.label} htmlFor="add_amount">
               Amount
             </InputLabel>
-            <Input 
-            id="add_amount" 
-            className={classes.input}
-            />
+            <Input id="add_amount" className={classes.input} />
           </FormControl>
           <DialogActions>
             <Button type="submit" variant="contained" color="primary">

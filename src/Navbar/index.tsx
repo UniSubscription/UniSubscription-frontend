@@ -1,5 +1,5 @@
 import React from "react";
-import { NewSubscription } from "../newSubscription";
+import { NewSubscription } from "../Subscription/components/newSubscription";
 import { Link } from "react-router-dom";
 import "./index.scss";
 
