@@ -2,11 +2,11 @@ import { HttpClient } from "../httpClient";
 
 class SubscriptionService extends HttpClient {
   constructor() {
-    super("http://localhost:8080/api");
+    super("http://172.28.0.53:8080/api");
   }
 
   async getSubscription(page: number, size: number) {
-    return this.get(`subscriptions?page=${page}&size=${size}`);
+    return this.getAddHeafer(`subscriptions?page=${page}&size=${size}`);
   }
 
   async addSubscription(newData: any) {
