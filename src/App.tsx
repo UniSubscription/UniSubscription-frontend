@@ -1,10 +1,7 @@
 import React from "react";
 import "./App.scss";
-// import {Login} from "./components/login";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import { RegisterForm } from "./components/login/registerForm";
-import { LoginForm } from "./components/login/loginForm";
-import { Auth } from "./components/login";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Auth } from "./Auth/components/auth";
 
 function App() {
   return (
