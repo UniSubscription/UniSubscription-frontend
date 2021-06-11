@@ -10,7 +10,7 @@ class AuthService extends HttpClient {
     return this.post(`authenticate`, newUser);
   }
 
-  async registerUser(newUser: IRegisterPayload) {
+  async registerUser(newUser: any) {
     return this.post(`register`, newUser);
   }
 }

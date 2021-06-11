@@ -15,8 +15,8 @@ export interface ISubscriptionResp {
   hasPrevious: boolean;
 }
 
-export interface IInitialState {
+export interface ISubscriptionInitialState {
   status: string;
-  data: ISubscriptionResp;
+  data: ISubscriptionResp | null;
   errors: [];
 }
