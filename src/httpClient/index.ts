@@ -12,6 +12,6 @@ export class HttpClient {
   }
 
   async post(url: string, body: any) {
-    return await axios.post(`${url}`, body);
+    return await axios.post(`${this.baseUrl}/${url}`, body);
   }
 }

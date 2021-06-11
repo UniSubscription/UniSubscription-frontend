@@ -1,18 +1,57 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { login } from "../../actions";
 
 export const LoginForm: React.FC = () => {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleFormChange = React.useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = evt.target;
+      setFormData((data) => ({
+        ...data,
+        [name]: value,
+      }));
+    },
+    [setFormData]
+  );
+
+  const handleLogin = (evt: React.FormEvent) => {
+    evt.preventDefault();
+
+    if (formData.email && formData.password) {
+      dispatch(login(formData));
+    }
+  };
+
   return (
     <>
       <h6 className="section-title">Login</h6>
-      <form>
+      <form onSubmit={handleLogin}>
         <div className="form-wrap">
           <label htmlFor="email"></label>
-          <input type="text" id="email" placeholder="Email address"></input>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            onChange={handleFormChange}
+            placeholder="Email address"
+          ></input>
         </div>
         <div className="form-wrap">
           <label htmlFor="password"></label>
-          <input type="text" id="password" placeholder="Password"></input>
+          <input
+            type="password"
+            onChange={handleFormChange}
+            name="password"
+            id="password"
+            placeholder="Password"
+          ></input>
         </div>
         <button type="submit" className="btn-main">
           Login

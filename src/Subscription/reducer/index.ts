@@ -7,7 +7,7 @@ const initialState = {
   errors: [],
 };
 
-export const roomsReducer = (state = initialState, action: Action) => {
+export const subscriptionReducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case `${SUBSCRIPTION_ACTIONS.GET_SUBSCRIPTION}_PENDING`:
       return {
