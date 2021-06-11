@@ -1,10 +1,14 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import { login } from "../../actions";
+import { IAppState } from "../../../redux/interface";
 
 export const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
+  const { push } = useHistory();
+  const user = useSelector((state: IAppState) => state.user);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,6 +32,12 @@ export const LoginForm: React.FC = () => {
       dispatch(login(formData));
     }
   };
+
+  useEffect(() => {
+    if (user.status === `SUCCESS`) {
+      push("/subscription");
+    }
+  }, [user.status, push]);
 
   return (
     <>
