@@ -5,7 +5,7 @@ export const LoginForm: React.FC = () => {
   return (
     <>
       <h6 className="section-title">Login</h6>
-      <form>
+      <form className="auth-form">
         <div className="form-wrap">
           <label htmlFor="email"></label>
           <input type="text" id="email" placeholder="Email address"></input>

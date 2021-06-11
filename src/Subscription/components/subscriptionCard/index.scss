@@ -1,8 +1,9 @@
 .subsCard{
     @media(max-width: 768px){
-        width: calc(100% / 2 - 20px);
+        width: calc(100% / 2 - 20px)!important;
     }
     @media(max-width: 576px){
-        width: calc(100% - 20px);
+        width: calc(100%)!important;
+        margin: 0 0 20px!important;
     }
 }

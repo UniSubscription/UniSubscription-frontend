@@ -5,7 +5,7 @@ export const RegisterForm: React.FC = () => {
   return (
     <>
       <h6 className="section-title">Register</h6>
-      <form>
+      <form className="auth-form">
         <div className="form-wrap">
           <label htmlFor="full-name"></label>
           <input type="text" id="full-name" placeholder="Full Name"></input>
