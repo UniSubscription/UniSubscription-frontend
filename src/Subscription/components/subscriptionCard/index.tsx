@@ -11,13 +11,16 @@ import {
   List,
   ListItem,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
+import { UpdateSubscription } from "../../../updateSubscription";
 import "./index.scss";
+// import SweetAlert from 'sweetalert-react';
+// import * as swal from 'sweetalert';
 
 const useStyles = makeStyles({
   root: {
     width: "calc(100% / 3 - 20px)",
-    margin: "0 10px 20px"
+    margin: "0 10px 20px",
   },
   icon: {
     objectFit: "contain",
@@ -56,7 +59,7 @@ const useStyles = makeStyles({
     padding: "0",
     width: "calc(100% / 3 - 5px)",
     display: "flex",
-    flexWrap:"wrap",
+    flexWrap: "wrap",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
@@ -78,9 +81,9 @@ const useStyles = makeStyles({
     background: "green",
     color: "#fff",
     "&:hover": {
-        background: "rgb(1, 61, 1)",
-        opacity:1,
-      },
+      background: "rgb(1, 61, 1)",
+      opacity: 1,
+    },
   },
   price: {
     textAlign: "center",
@@ -90,20 +93,24 @@ const useStyles = makeStyles({
   cardButton: {
     "&:hover": {
       background: "#fff",
-      opacity:1,
-      cursor: 'default'
+      opacity: 1,
+      cursor: "default",
     },
   },
-  buttonWrap:{
-      marginBottom:"10px",
-      justifyContent:"center"
-  }
+  buttonWrap: {
+    marginBottom: "10px",
+    justifyContent: "center",
+  },
 });
 
 export const SubscriptionCard: React.FC = () => {
   const classes = useStyles();
 
- 
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleAlert = () => {
+    setShowAlert(!showAlert);
+  };
 
   return (
     <Card className={`${classes.root} subsCard`}>
@@ -182,12 +189,17 @@ export const SubscriptionCard: React.FC = () => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.buttonWrap}>
-        <Button size="small" variant="contained" color="primary">
-          edit
-        </Button>
-        <Button size="small" variant="contained" color="secondary">
-          delete
-        </Button>
+        <UpdateSubscription />
+        <div>
+          <Button
+            size="small"
+            variant="contained"
+            color="secondary"
+            onClick={handleAlert}
+          >
+            delete
+          </Button>
+        </div>
         <Button className={classes.buttonGreen} size="small" color="primary">
           pay
         </Button>

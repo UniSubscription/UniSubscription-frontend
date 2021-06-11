@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IAppState } from "../../redux/interface";
 import { getSubscription } from "../actions";
+import React from "react";
+import {Navbar} from "../../Navbar";
 import { SubscriptionCard } from "./subscriptionCard";
 
 const useStyles = makeStyles({
@@ -27,6 +29,7 @@ export const Subscription: React.FC = () => {
 
   return (
     <div>
+      <Navbar />
       <Box className={classes.root}>
         <SubscriptionCard />
       </Box>
