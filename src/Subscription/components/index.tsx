@@ -1,5 +1,6 @@
 import { Box, makeStyles } from "@material-ui/core";
 import React from "react";
+import {Navbar} from "../../Navbar";
 import { SubscriptionCard } from "./subscriptionCard";
 
 const useStyles = makeStyles({
@@ -15,6 +16,7 @@ export const Subscription: React.FC = () => {
 
   return (
     <div>
+      <Navbar />
       <Box className={classes.root}>
         <SubscriptionCard />
       </Box>

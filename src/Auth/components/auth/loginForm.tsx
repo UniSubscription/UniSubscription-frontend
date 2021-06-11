@@ -42,7 +42,7 @@ export const LoginForm: React.FC = () => {
   return (
     <>
       <h6 className="section-title">Login</h6>
-      <form onSubmit={handleLogin}>
+      <form className="auth-form" onSubmit={handleLogin}>
         <div className="form-wrap">
           <label htmlFor="email"></label>
           <input

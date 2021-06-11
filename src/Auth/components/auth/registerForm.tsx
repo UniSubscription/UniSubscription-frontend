@@ -24,7 +24,7 @@ export const RegisterForm: React.FC = () => {
   return (
     <>
       <h6 className="section-title">Register</h6>
-      <form onSubmit={handleRegister}>
+      <form className="auth-form" onSubmit={handleRegister}>
         <div className="form-wrap">
           <label htmlFor="name"></label>
           <input
