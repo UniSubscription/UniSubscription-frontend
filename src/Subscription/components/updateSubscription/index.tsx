@@ -17,6 +17,7 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 import { subscriptionService } from "../../service";
 import moment from "moment";
+import "./index.scss";
 
 const useStyle = makeStyles({
   dialog: {
@@ -32,6 +33,9 @@ const useStyle = makeStyles({
   label: {
     fontSize: "12px",
   },
+  dateLabel:{
+    fontSize: "12px",
+  }
 });
 
 export const UpdateSubscription: React.FC<{
@@ -156,7 +160,7 @@ export const UpdateSubscription: React.FC<{
               margin="normal"
               id="sub_date"
               label="Subscription date"
-              className={classes.label}
+              className={classes.dateLabel}
               format="MM-dd-yyyy"
               value={data.subscriptionDate}
               onChange={handleSubscriptionDate}
@@ -168,7 +172,7 @@ export const UpdateSubscription: React.FC<{
               margin="normal"
               id="sub_date"
               label="Next Billing date"
-              className={classes.label}
+              className={classes.dateLabel}
               format="MM-dd-yyyy"
               value={data.nextBillingDate}
               onChange={handleNextBillingDate}
