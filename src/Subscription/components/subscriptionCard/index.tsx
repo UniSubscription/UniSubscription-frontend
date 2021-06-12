@@ -192,7 +192,7 @@ export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
           </Typography>
           <Box style={{ marginTop: "10px" }}>
             <Typography className={classes.price} variant="h4">
-              5.99$
+              {data.cost} $
             </Typography>
             <Typography
               className={classes.label}

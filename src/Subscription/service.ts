@@ -10,7 +10,7 @@ class SubscriptionService extends HttpClient {
   }
 
   async addSubscription(newData: any) {
-    return this.post(`subscriptions`, newData);
+    return this.postWithHeader(`subscriptions`, newData);
   }
 }
 

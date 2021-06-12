@@ -4,7 +4,6 @@ import {
   Button,
   Dialog,
   DialogTitle,
-  DialogContent,
   DialogActions,
   FormControl,
   InputLabel,
@@ -74,7 +73,13 @@ export const UpdateSubscription = () => {
         <DialogTitle style={{ color: "#194949" }} id="alert-dialog-title">
           Add New Subscription
         </DialogTitle>
-        <form style={{ display: "flex", flexDirection: "column", padding: "0 15px"}}>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: "0 15px",
+          }}
+        >
           <FormControl className={classes.formWrap}>
             <InputLabel className={classes.label} htmlFor="add_company-name">
               Company Name
@@ -123,7 +128,12 @@ export const UpdateSubscription = () => {
             <Button type="submit" variant="contained" color="primary">
               Update subscription
             </Button>
-            <Button variant="contained" color="secondary" autoFocus onClick={handleClose}>
+            <Button
+              variant="contained"
+              color="secondary"
+              autoFocus
+              onClick={handleClose}
+            >
               Close
             </Button>
           </DialogActions>

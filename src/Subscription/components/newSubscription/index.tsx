@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import "date-fns";
 import {
   Button,
@@ -15,6 +15,7 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import moment from "moment";
 
 const useStyle = makeStyles({
   dialog: {
@@ -32,29 +33,48 @@ const useStyle = makeStyles({
   },
 });
 
-export const NewSubscription = () => {
+export const NewSubscription: React.FC<{
+  handleAddSubmit: (evt: React.FormEvent, data: any) => void;
+}> = ({ handleAddSubmit }) => {
   const classes = useStyle();
-
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date("2014-08-18T21:11:54")
-  );
-
   const [formState, setFormState] = React.useState({});
-
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-    console.log(selectedDate);
-  };
-
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [selectedDate] = React.useState<Date | null>(new Date());
+
+  const handleDateChange = (date: Date | null) => {
+    setFormState((data) => ({
+      ...data,
+      subscriptionDate: moment(date).format("yyyy-MM-DD"),
+    }));
   };
 
-  const handleClose = () => {
+  const handleClickOpen = useCallback(() => {
+    setOpen(true);
+  }, []);
+
+  const handleClose = useCallback(() => {
     setOpen(false);
-  };
+  }, []);
+
+  const handleFormChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = evt.target;
+      setFormState((data) => ({
+        ...data,
+        [name]: value,
+      }));
+    },
+    [setFormState]
+  );
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      handleAddSubmit(e, formState);
+      handleClose();
+    },
+    [handleClose, handleAddSubmit, formState]
+  );
 
   return (
     <>
@@ -77,18 +97,29 @@ export const NewSubscription = () => {
             flexDirection: "column",
             padding: "0 15px",
           }}
+          onSubmit={handleSubmit}
         >
           <FormControl className={classes.formWrap}>
             <InputLabel className={classes.label} htmlFor="add_company-name">
               Company Name
             </InputLabel>
-            <Input className={classes.input} id="add_company-name" />
+            <Input
+              className={classes.input}
+              name="name"
+              onChange={handleFormChange}
+              id="add_company-name"
+            />
           </FormControl>
           <FormControl className={classes.formWrap}>
             <InputLabel className={classes.label} htmlFor="add_email">
               Email address
             </InputLabel>
-            <Input id="add_email" className={classes.input} />
+            <Input
+              id="add_email"
+              name="subscriptionMail"
+              onChange={handleFormChange}
+              className={classes.input}
+            />
           </FormControl>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
@@ -108,7 +139,16 @@ export const NewSubscription = () => {
             <InputLabel className={classes.label} htmlFor="add_amount">
               Amount
             </InputLabel>
-            <Input id="add_amount" className={classes.input} />
+            <Input
+              id="add_amount"
+              name="cost"
+              type="number"
+              inputProps={{
+                min: 0,
+              }}
+              onChange={handleFormChange}
+              className={classes.input}
+            />
           </FormControl>
           <DialogActions>
             <Button type="submit" variant="contained" color="primary">
