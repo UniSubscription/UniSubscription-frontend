@@ -6,7 +6,7 @@ body {
 
 .box {
   width: calc(100% - 40px);
-  min-height: 350px;
+  min-height: 420px;
   max-width: 600px;
   border-radius: 10px;
   margin: 50px auto;
@@ -129,4 +129,9 @@ body {
             
         }
     }
+}
+
+.error-msg{
+  color: red;
+  font-size: 10px;
 }
