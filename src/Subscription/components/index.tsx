@@ -2,7 +2,11 @@ import { Box, CircularProgress, makeStyles } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IAppState } from "../../redux/interface";
-import { addSubscription, getSubscription } from "../actions";
+import {
+  addSubscription,
+  getSubscription,
+  updateSubscription,
+} from "../actions";
 import { Navbar } from "../../Navbar";
 import { SubscriptionCard } from "./subscriptionCard";
 import { NewSubscription } from "./newSubscription";
@@ -31,8 +35,20 @@ export const Subscription: React.FC = () => {
   const handleAddSubmit = useCallback(
     (evt: React.FormEvent, data) => {
       evt.preventDefault();
-      addSubscription(data);
-      dispatch(getSubscription(page, dataSize));
+      addSubscription(data).then(() => {
+        dispatch(getSubscription(page, dataSize));
+      });
+    },
+    [dataSize, page, dispatch]
+  );
+
+  const handleUpdateSubmit = useCallback(
+    (evt: React.FormEvent, updateData, id: number) => {
+      evt.preventDefault();
+      console.log(updateData, id);
+      updateSubscription(updateData, id).then(() => {
+        dispatch(getSubscription(page, dataSize));
+      });
     },
     [dataSize, page, dispatch]
   );
@@ -51,7 +67,13 @@ export const Subscription: React.FC = () => {
       {subscription.status === "SUCCESS" && (
         <Box className={classes.root}>
           {data?.items.map((item) => {
-            return <SubscriptionCard key={item.id} data={item} />;
+            return (
+              <SubscriptionCard
+                handleUpdateSubmit={handleUpdateSubmit}
+                key={item.id}
+                data={item}
+              />
+            );
           })}
         </Box>
       )}

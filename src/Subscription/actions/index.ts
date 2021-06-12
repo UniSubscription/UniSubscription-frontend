@@ -25,9 +25,10 @@ export const getSubscription =
       });
   };
 
-export const addSubscription = (data: ISubscription) => {
-  subscriptionService
-    .addSubscription(data)
-    .then((res) => res)
-    .catch((err) => err);
+export const addSubscription = async (data: ISubscription) => {
+  await subscriptionService.addSubscription(data);
+};
+
+export const updateSubscription = async (data: ISubscription, id: number) => {
+  await subscriptionService.updateSubscription(data, id);
 };

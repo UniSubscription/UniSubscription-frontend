@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import "date-fns";
 import {
   Button,
@@ -15,6 +15,8 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { subscriptionService } from "../../service";
+import moment from "moment";
 
 const useStyle = makeStyles({
   dialog: {
@@ -32,26 +34,70 @@ const useStyle = makeStyles({
   },
 });
 
-export const UpdateSubscription = () => {
+export const UpdateSubscription: React.FC<{
+  id: number;
+  handleUpdateSubmit: (evt: React.FormEvent, data: any, id: number) => void;
+}> = ({ id, handleUpdateSubmit }) => {
   const classes = useStyle();
+  const [data, setData] = React.useState({
+    name: "",
+    subscriptionDate: "",
+    subscriptionMail: "",
+    nextBillingDate: "",
+    cost: "",
+  });
 
-  const [selectedDate, setSelectedDate] = React.useState<Date | null>(
-    new Date("2014-08-18T21:11:54")
-  );
-
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
+  const handleSubscriptionDate = (date: Date | null) => {
+    setData((data) => ({
+      ...data,
+      subscriptionDate: moment(date).format("yyyy-MM-DD"),
+    }));
   };
+
+  const handleNextBillingDate = (date: Date | null) => {
+    setData((data) => ({
+      ...data,
+      nextBillingDate: moment(date).format("yyyy-MM-DD"),
+    }));
+  };
+
+  const handleFormChange = useCallback(
+    (evt: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = evt.target;
+      setData((data) => ({
+        ...data,
+        [name]: value,
+      }));
+    },
+    [setData]
+  );
 
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
+    subscriptionService.getSubscriptionById(id).then(({ data }) => {
+      setData({
+        name: data.name,
+        subscriptionDate: data.subscriptionDate,
+        subscriptionMail: data.subscriptionMail,
+        nextBillingDate: data.nextBillingDate,
+        cost: data.cost,
+      });
+    });
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      handleUpdateSubmit(e, data, id);
+      handleClose();
+    },
+    [handleUpdateSubmit, data, id]
+  );
 
   return (
     <>
@@ -79,18 +125,31 @@ export const UpdateSubscription = () => {
             flexDirection: "column",
             padding: "0 15px",
           }}
+          onSubmit={handleSubmit}
         >
           <FormControl className={classes.formWrap}>
             <InputLabel className={classes.label} htmlFor="add_company-name">
               Company Name
             </InputLabel>
-            <Input className={classes.input} id="add_company-name" />
+            <Input
+              className={classes.input}
+              value={data.name}
+              name="name"
+              onChange={handleFormChange}
+              id="add_company-name"
+            />
           </FormControl>
           <FormControl className={classes.formWrap}>
             <InputLabel className={classes.label} htmlFor="add_email">
               Email address
             </InputLabel>
-            <Input className={classes.input} id="add_email" />
+            <Input
+              className={classes.input}
+              name="subscriptionMail"
+              onChange={handleFormChange}
+              value={data.subscriptionMail}
+              id="add_email"
+            />
           </FormControl>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
@@ -98,9 +157,9 @@ export const UpdateSubscription = () => {
               id="sub_date"
               label="Subscription date"
               className={classes.label}
-              format="MM/dd/yyyy"
-              value={selectedDate}
-              onChange={handleDateChange}
+              format="MM-dd-yyyy"
+              value={data.subscriptionDate}
+              onChange={handleSubscriptionDate}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
@@ -110,9 +169,9 @@ export const UpdateSubscription = () => {
               id="sub_date"
               label="Next Billing date"
               className={classes.label}
-              format="MM/dd/yyyy"
-              value={selectedDate}
-              onChange={handleDateChange}
+              format="MM-dd-yyyy"
+              value={data.nextBillingDate}
+              onChange={handleNextBillingDate}
               KeyboardButtonProps={{
                 "aria-label": "change date",
               }}
@@ -122,7 +181,13 @@ export const UpdateSubscription = () => {
             <InputLabel className={classes.label} htmlFor="add_amount">
               Amount
             </InputLabel>
-            <Input className={classes.input} id="add_amount" />
+            <Input
+              className={classes.input}
+              value={data.cost}
+              name="cost"
+              onChange={handleFormChange}
+              id="add_amount"
+            />
           </FormControl>
           <DialogActions>
             <Button type="submit" variant="contained" color="primary">

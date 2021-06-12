@@ -127,7 +127,7 @@ export const NewSubscription: React.FC<{
               id="sub_date"
               label="Subscription date"
               className={classes.label}
-              format="MM/dd/yyyy"
+              format="MM-dd-yyyy"
               value={selectedDate}
               onChange={handleDateChange}
               KeyboardButtonProps={{

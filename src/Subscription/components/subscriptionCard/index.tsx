@@ -111,14 +111,17 @@ const useStyles = makeStyles({
   },
 });
 
-export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
-  data,
-}) => {
+export const SubscriptionCard: React.FC<{
+  data: ISubscription;
+  handleUpdateSubmit: (evt: React.FormEvent, data: any, id: number) => void;
+}> = ({ data, handleUpdateSubmit }) => {
   const classes = useStyles();
 
   const getNextBillingDate = useCallback(() => {
     if (moment(data.nextBillingDate).diff(moment(), "day") >= 1) {
       return `${moment(data.nextBillingDate).diff(moment(), "day")} day`;
+    } else if (moment(data.nextBillingDate).diff(moment(), "day") < 0) {
+      return `Payment time`;
     } else {
       return `${moment(data.nextBillingDate).diff(moment(), "hours")} hours`;
     }
@@ -209,7 +212,10 @@ export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.buttonWrap}>
-        <UpdateSubscription />
+        <UpdateSubscription
+          handleUpdateSubmit={handleUpdateSubmit}
+          id={data.id}
+        />
         <div>
           <Button
             size="small"
