@@ -11,9 +11,11 @@ import {
   List,
   ListItem,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import { ISubscription } from "../../interface";
 import { UpdateSubscription } from "../updateSubscription";
 import "./index.scss";
+import moment from "moment";
 
 const useStyles = makeStyles({
   root: {
@@ -75,6 +77,14 @@ const useStyles = makeStyles({
     textTransform: "uppercase",
     marginBottom: "5px",
   },
+  email: {
+    display: "flex",
+    justifyContent: "center",
+    fontWeight: "bold",
+    color: "#424242",
+    margin: "8px 0",
+    fontSize: "20px",
+  },
   buttonGreen: {
     background: "green",
     color: "#fff",
@@ -101,15 +111,24 @@ const useStyles = makeStyles({
   },
 });
 
-export const SubscriptionCard: React.FC = () => {
+export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
+  data,
+}) => {
   const classes = useStyles();
+
+  const getNextBillingDate = useCallback(() => {
+    if (moment(data.nextBillingDate).diff(moment(), "day") >= 1) {
+      return `${moment(data.nextBillingDate).diff(moment(), "day")} day`;
+    } else {
+      return `${moment(data.nextBillingDate).diff(moment(), "hours")} hours`;
+    }
+  }, [data.nextBillingDate]);
 
   const [showAlert, setShowAlert] = useState(false);
 
   const handleAlert = () => {
     setShowAlert(!showAlert);
   };
-
   return (
     <Card className={`${classes.root} subsCard`}>
       <CardActionArea className={classes.cardButton}>
@@ -140,7 +159,7 @@ export const SubscriptionCard: React.FC = () => {
             variant="h5"
             component="h2"
           >
-            Youtube
+            {data.name}
           </Typography>
           <List className={classes.listWrap}>
             <ListItem className={classes.listItem}>
@@ -148,7 +167,7 @@ export const SubscriptionCard: React.FC = () => {
                 Subscirbed on:
               </Typography>
               <Typography className={classes.listText} variant="h6">
-                01/04/2019
+                {data.subscriptionDate}
               </Typography>
             </ListItem>
             <ListItem className={classes.listItem}>
@@ -156,7 +175,7 @@ export const SubscriptionCard: React.FC = () => {
                 Next billing:
               </Typography>
               <Typography className={classes.listText} variant="h6">
-                01/04/2019
+                {data.nextBillingDate}
               </Typography>
             </ListItem>
             <ListItem className={classes.listItem}>
@@ -164,10 +183,13 @@ export const SubscriptionCard: React.FC = () => {
                 Days left:
               </Typography>
               <Typography className={classes.listText} variant="h6">
-                3 days
+                {getNextBillingDate()}
               </Typography>
             </ListItem>
           </List>
+          <Typography variant="inherit" className={classes.email}>
+            {data.subscriptionMail}
+          </Typography>
           <Box style={{ marginTop: "10px" }}>
             <Typography className={classes.price} variant="h4">
               5.99$
