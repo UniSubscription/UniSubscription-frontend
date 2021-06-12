@@ -16,6 +16,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import moment from "moment";
+import swal from "sweetalert";
 
 const useStyle = makeStyles({
   dialog: {
@@ -71,6 +72,11 @@ export const NewSubscription: React.FC<{
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       handleAddSubmit(e, formState);
+      // swal({
+      //   title: "Congratulations!",
+      //   text: "You have successfully added new subscription!",
+      //   icon: "success",
+      // });
       handleClose();
     },
     [handleClose, handleAddSubmit, formState]

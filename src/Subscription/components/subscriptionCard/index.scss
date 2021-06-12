@@ -1,9 +1,40 @@
-.subsCard{
-    @media(max-width: 768px){
-        width: calc(100% / 2 - 20px)!important;
-    }
-    @media(max-width: 576px){
-        width: calc(100%)!important;
-        margin: 0 0 20px!important;
-    }
+.subsCard {
+  overflow: unset;
+  @media (max-width: 768px) {
+    width: calc(100% / 2 - 20px) !important;
+  }
+  @media (max-width: 576px) {
+    width: calc(100%) !important;
+    margin: 0 auto 20px !important;
+    max-width: 320px;
+  }
+}
+
+.warning-badge {
+  background: crimson;
+  color: #fff;
+  text-align: center;
+  padding: 6px 20px 6px 10px;
+  border-radius: 4px 0 0 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  width: 90px;
+  line-height: 1;
+  position: absolute;
+  right: -10px;
+  top: 175px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 0;
+    border-color: rgb(168, 15, 46) transparent transparent transparent;
+    top: 100%;
+    right: 0;
+  }
 }

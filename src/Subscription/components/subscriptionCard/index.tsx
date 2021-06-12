@@ -11,16 +11,18 @@ import {
   List,
   ListItem,
 } from "@material-ui/core";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { ISubscription } from "../../interface";
 import { UpdateSubscription } from "../updateSubscription";
 import "./index.scss";
 import moment from "moment";
+import swal from "sweetalert";
 
 const useStyles = makeStyles({
   root: {
     width: "calc(100% / 3 - 20px)",
     margin: "0 10px 20px",
+    overflow: "unset",
   },
   icon: {
     objectFit: "contain",
@@ -45,7 +47,7 @@ const useStyles = makeStyles({
     width: "100%",
     background: "red",
     position: "relative",
-    marginBottom: "30px",
+    marginBottom: "50px",
   },
   title: {
     textAlign: "center",
@@ -62,16 +64,16 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   listText: {
     textAlign: "center",
-    fontSize: "14px",
+    fontSize: "13px",
     fontWeight: "bold",
   },
   label: {
     textAlign: "center",
-    fontSize: "11px",
+    fontSize: "10px",
     fontWeight: "bolder",
     color: "rgb(131, 129, 129)",
     textTransform: "uppercase",
@@ -119,16 +121,33 @@ export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
   const getNextBillingDate = useCallback(() => {
     if (moment(data.nextBillingDate).diff(moment(), "day") >= 1) {
       return `${moment(data.nextBillingDate).diff(moment(), "day")} day`;
-    } else {
+    }else if(moment(data.nextBillingDate).diff(moment(), "day") < 0){
+      return "0 day"
+    } 
+    else {
       return `${moment(data.nextBillingDate).diff(moment(), "hours")} hours`;
     }
   }, [data.nextBillingDate]);
 
-  const [showAlert, setShowAlert] = useState(false);
 
   const handleAlert = () => {
-    setShowAlert(!showAlert);
+    swal({
+      title: "Are you sure to delete?",
+      text: "Once deleted, you will not be able to recover this subscription!",
+      icon: "warning",
+      buttons: ["Cancel", "Delete"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal({
+          icon: "success",
+          title: "Thank you!",
+          text: "Your subscription has been deleted!"
+        });
+      }
+    });
   };
+  
   return (
     <Card className={`${classes.root} subsCard`}>
       <CardActionArea className={classes.cardButton}>
@@ -138,6 +157,7 @@ export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
           height="140"
           image={`${process.env.PUBLIC_URL}/bg.jpg`}
           title="Contemplative Reptile"
+          style={{borderRadius: "4px 4px 0 0"}}
         />
         <CardContent>
           <Box className={classes.container}>
@@ -206,6 +226,8 @@ export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
               Monthly payment
             </Typography>
           </Box>
+          {getNextBillingDate()==="0 day" && <div className="warning-badge">Payment is due</div>} 
+        
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.buttonWrap}>
