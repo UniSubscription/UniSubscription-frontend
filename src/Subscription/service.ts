@@ -21,6 +21,10 @@ class SubscriptionService extends HttpClient {
   async updateSubscription(updateDate: ISubscription, id: number) {
     return this.postWithHeader(`subscriptions/${id}`, updateDate);
   }
+
+  async deleteSubscription(id: number) {
+    return this.deleteWithHeader(`subscriptions/${id}`);
+  }
 }
 
 export const subscriptionService = new SubscriptionService();
