@@ -14,6 +14,11 @@ class SubscriptionService extends HttpClient {
     return this.getWithHeafer(`subscriptions/${id}`);
   }
 
+  async paySubscription(id: number) {
+    return this.getWithHeafer(`subscriptions/${id}/donePayment
+    `);
+  }
+
   async addSubscription(newData: ISubscription) {
     return this.postWithHeader(`subscriptions`, newData);
   }
