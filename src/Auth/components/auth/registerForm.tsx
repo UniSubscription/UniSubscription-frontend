@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 import { authService } from "../../service";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import swal from "sweetalert";
 
 export const RegisterForm: React.FC = () => {
   const { push } = useHistory();
@@ -28,6 +29,11 @@ export const RegisterForm: React.FC = () => {
     }),
     onSubmit: (values) => {
       authService.registerUser(values).then(() => push("/user/login"));
+      swal({
+        title: "Congratulations!",
+        text: "You have successfully registered!",
+        icon: "success",
+      });
     },
   });
   return (
@@ -82,7 +88,7 @@ export const RegisterForm: React.FC = () => {
         <div className="form-wrap">
           <label htmlFor="password"></label>
           <input
-            type="text"
+            type="password"
             id="password"
             name="password"
             placeholder="Password"

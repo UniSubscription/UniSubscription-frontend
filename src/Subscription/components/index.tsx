@@ -9,6 +9,9 @@ import { NewSubscription } from "./newSubscription";
 
 const useStyles = makeStyles({
   root: {
+    width: "100%",
+    maxWidth: "1100px",
+    margin: "0 auto",
     display: "flex",
     flexWrap: "wrap",
     padding: "20px",
