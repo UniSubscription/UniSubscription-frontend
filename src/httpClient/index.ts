@@ -19,11 +19,19 @@ export class HttpClient {
     });
   }
 
+  async getWithHeaferId(url: string, id: number) {
+    return await axios.get(`${this.baseUrl}/${url}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
+  }
+
   async post(url: string, body: any) {
     return await axios.post(`${this.baseUrl}/${url}`, body);
   }
 
-  async postWithHeader(url: string, body: any) {
+  async postWithHeader(url: string, body: object) {
     return await axios.post(`${this.baseUrl}/${url}`, body, {
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,

@@ -113,9 +113,10 @@ const useStyles = makeStyles({
   },
 });
 
-export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
-  data,
-}) => {
+export const SubscriptionCard: React.FC<{
+  data: ISubscription;
+  handleUpdateSubmit: (evt: React.FormEvent, data: any, id: number) => void;
+}> = ({ data, handleUpdateSubmit }) => {
   const classes = useStyles();
 
   const getNextBillingDate = useCallback(() => {
@@ -231,7 +232,10 @@ export const SubscriptionCard: React.FC<{ data: ISubscription }> = ({
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.buttonWrap}>
-        <UpdateSubscription />
+        <UpdateSubscription
+          handleUpdateSubmit={handleUpdateSubmit}
+          id={data.id}
+        />
         <div>
           <Button
             size="small"

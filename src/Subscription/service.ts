@@ -1,4 +1,5 @@
 import { HttpClient } from "../httpClient";
+import { ISubscription } from "./interface";
 
 class SubscriptionService extends HttpClient {
   constructor() {
@@ -9,8 +10,16 @@ class SubscriptionService extends HttpClient {
     return this.getWithHeafer(`subscriptions?page=${page}&size=${size}`);
   }
 
-  async addSubscription(newData: any) {
+  async getSubscriptionById(id: number) {
+    return this.getWithHeafer(`subscriptions/${id}`);
+  }
+
+  async addSubscription(newData: ISubscription) {
     return this.postWithHeader(`subscriptions`, newData);
+  }
+
+  async updateSubscription(updateDate: ISubscription, id: number) {
+    return this.postWithHeader(`subscriptions/${id}`, updateDate);
   }
 }
 
