@@ -116,20 +116,19 @@ const useStyles = makeStyles({
 export const SubscriptionCard: React.FC<{
   data: ISubscription;
   handleUpdateSubmit: (evt: React.FormEvent, data: any, id: number) => void;
-}> = ({ data, handleUpdateSubmit }) => {
+  handleDelete: (id: number) => void;
+}> = ({ data, handleUpdateSubmit, handleDelete }) => {
   const classes = useStyles();
 
   const getNextBillingDate = useCallback(() => {
     if (moment(data.nextBillingDate).diff(moment(), "day") >= 1) {
       return `${moment(data.nextBillingDate).diff(moment(), "day")} day`;
-    }else if(moment(data.nextBillingDate).diff(moment(), "day") < 0){
-      return "0 day"
-    } 
-    else {
+    } else if (moment(data.nextBillingDate).diff(moment(), "day") < 0) {
+      return "0 day";
+    } else {
       return `${moment(data.nextBillingDate).diff(moment(), "hours")} hours`;
     }
   }, [data.nextBillingDate]);
-
 
   const handleAlert = () => {
     swal({
@@ -139,16 +138,17 @@ export const SubscriptionCard: React.FC<{
       buttons: ["Cancel", "Delete"],
       dangerMode: true,
     }).then((willDelete) => {
+      handleDelete(data.id);
       if (willDelete) {
         swal({
           icon: "success",
           title: "Thank you!",
-          text: "Your subscription has been deleted!"
+          text: "Your subscription has been deleted!",
         });
       }
     });
   };
-  
+
   return (
     <Card className={`${classes.root} subsCard`}>
       <CardActionArea className={classes.cardButton}>
@@ -158,7 +158,7 @@ export const SubscriptionCard: React.FC<{
           height="140"
           image={`${process.env.PUBLIC_URL}/bg.jpg`}
           title="Contemplative Reptile"
-          style={{borderRadius: "4px 4px 0 0"}}
+          style={{ borderRadius: "4px 4px 0 0" }}
         />
         <CardContent>
           <Box className={classes.container}>
@@ -227,8 +227,9 @@ export const SubscriptionCard: React.FC<{
               Monthly payment
             </Typography>
           </Box>
-          {getNextBillingDate()==="0 day" && <div className="warning-badge">Payment is due</div>} 
-        
+          {getNextBillingDate() === "0 day" && (
+            <div className="warning-badge">Payment is due</div>
+          )}
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.buttonWrap}>

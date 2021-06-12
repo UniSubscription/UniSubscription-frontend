@@ -10,6 +10,7 @@ import {
 import { Navbar } from "../../Navbar";
 import { SubscriptionCard } from "./subscriptionCard";
 import { NewSubscription } from "./newSubscription";
+import { subscriptionService } from "../service";
 
 const useStyles = makeStyles({
   root: {
@@ -48,12 +49,20 @@ export const Subscription: React.FC = () => {
   const handleUpdateSubmit = useCallback(
     (evt: React.FormEvent, updateData, id: number) => {
       evt.preventDefault();
-      console.log(updateData, id);
       updateSubscription(updateData, id).then(() => {
         dispatch(getSubscription(page, dataSize));
       });
     },
     [dataSize, page, dispatch]
+  );
+
+  const handleDelete = useCallback(
+    (id: number) => {
+      subscriptionService.deleteSubscription(id).then(() => {
+        dispatch(getSubscription(page, dataSize));
+      });
+    },
+    [page, dataSize, dispatch]
   );
 
   return (
@@ -73,6 +82,7 @@ export const Subscription: React.FC = () => {
             return (
               <SubscriptionCard
                 handleUpdateSubmit={handleUpdateSubmit}
+                handleDelete={handleDelete}
                 key={item.id}
                 data={item}
               />

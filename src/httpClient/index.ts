@@ -38,4 +38,12 @@ export class HttpClient {
       },
     });
   }
+
+  async deleteWithHeader(url: string) {
+    return await axios.delete(`${this.baseUrl}/${url}`, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
+  }
 }
