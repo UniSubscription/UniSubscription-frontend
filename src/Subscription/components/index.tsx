@@ -65,6 +65,15 @@ export const Subscription: React.FC = () => {
     [page, dataSize, dispatch]
   );
 
+  const handlePay = useCallback(
+    (id: number) => {
+      subscriptionService.paySubscription(id).then(() => {
+        dispatch(getSubscription(page, dataSize));
+      });
+    },
+    [page, dataSize, dispatch]
+  );
+
   return (
     <div>
       <Navbar />
@@ -83,6 +92,7 @@ export const Subscription: React.FC = () => {
               <SubscriptionCard
                 handleUpdateSubmit={handleUpdateSubmit}
                 handleDelete={handleDelete}
+                handlePay={handlePay}
                 key={item.id}
                 data={item}
               />

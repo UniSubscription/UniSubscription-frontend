@@ -117,7 +117,8 @@ export const SubscriptionCard: React.FC<{
   data: ISubscription;
   handleUpdateSubmit: (evt: React.FormEvent, data: any, id: number) => void;
   handleDelete: (id: number) => void;
-}> = ({ data, handleUpdateSubmit, handleDelete }) => {
+  handlePay: (id: number) => void;
+}> = ({ data, handleUpdateSubmit, handleDelete, handlePay }) => {
   const classes = useStyles();
 
   const getNextBillingDate = useCallback(() => {
@@ -129,6 +130,15 @@ export const SubscriptionCard: React.FC<{
       return `${moment(data.nextBillingDate).diff(moment(), "hours")} hours`;
     }
   }, [data.nextBillingDate]);
+
+  const handlePayAlert = () => {
+    handlePay(data.id);
+    swal({
+      title: "Congratulations!",
+      text: "You have successfully added new subscription!",
+      icon: "success",
+    });
+  };
 
   const handleAlert = () => {
     swal({
@@ -247,7 +257,12 @@ export const SubscriptionCard: React.FC<{
             delete
           </Button>
         </div>
-        <Button className={classes.buttonGreen} size="small" color="primary">
+        <Button
+          onClick={handlePayAlert}
+          className={classes.buttonGreen}
+          size="small"
+          color="primary"
+        >
           pay
         </Button>
       </CardActions>
