@@ -23,7 +23,9 @@ const useStyles = makeStyles({
   },
 });
 
-export const Subscription: React.FC = () => {
+export const Subscription: React.FC<{
+  user: { id: number; fullName: string };
+}> = ({ user }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const subscription = useSelector((state: IAppState) => state.subscription);
@@ -76,7 +78,7 @@ export const Subscription: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar user={user} />
       <Box display="flex" justifyContent="flex-end" margin="20px 30px">
         <NewSubscription handleAddSubmit={handleAddSubmit} />
       </Box>
