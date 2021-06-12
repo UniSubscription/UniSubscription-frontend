@@ -61,7 +61,7 @@ export const RegisterForm: React.FC = () => {
         <div className="form-wrap">
           <label htmlFor="password"></label>
           <input
-            type="text"
+            type="password"
             onChange={handleFormChange}
             id="password"
             required
