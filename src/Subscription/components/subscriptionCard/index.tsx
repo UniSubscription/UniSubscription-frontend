@@ -23,6 +23,9 @@ const useStyles = makeStyles({
     width: "calc(100% / 3 - 20px)",
     margin: "0 10px 20px",
     overflow: "unset",
+    display: "flex",
+    flexDirection:"column",
+    justifyContent:"space-between"
   },
   icon: {
     objectFit: "contain",
