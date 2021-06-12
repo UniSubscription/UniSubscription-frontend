@@ -41,9 +41,10 @@ export const NewSubscription: React.FC<{
   const [formState, setFormState] = React.useState({});
   const [open, setOpen] = React.useState(false);
 
-  const [selectedDate] = React.useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = React.useState<Date | null>(new Date());
 
   const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date)
     setFormState((data) => ({
       ...data,
       subscriptionDate: moment(date).format("yyyy-MM-DD"),
@@ -72,11 +73,11 @@ export const NewSubscription: React.FC<{
   const handleSubmit = useCallback(
     (e: React.FormEvent) => {
       handleAddSubmit(e, formState);
-      // swal({
-      //   title: "Congratulations!",
-      //   text: "You have successfully added new subscription!",
-      //   icon: "success",
-      // });
+      swal({
+        title: "Congratulations!",
+        text: "You have successfully added new subscription!",
+        icon: "success",
+      });
       handleClose();
     },
     [handleClose, handleAddSubmit, formState]
@@ -110,6 +111,7 @@ export const NewSubscription: React.FC<{
               Company Name
             </InputLabel>
             <Input
+              required
               className={classes.input}
               name="name"
               onChange={handleFormChange}
@@ -121,6 +123,7 @@ export const NewSubscription: React.FC<{
               Email address
             </InputLabel>
             <Input
+              required
               id="add_email"
               name="subscriptionMail"
               onChange={handleFormChange}
@@ -146,6 +149,7 @@ export const NewSubscription: React.FC<{
               Amount
             </InputLabel>
             <Input
+              required
               id="add_amount"
               name="cost"
               type="number"
