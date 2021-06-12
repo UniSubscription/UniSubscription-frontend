@@ -1,73 +1,98 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { authService } from "../../service";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 export const RegisterForm: React.FC = () => {
-  const [formData, setFormData] = useState({});
   const { push } = useHistory();
 
-  const handleFormChange = React.useCallback(
-    (evt: React.ChangeEvent<HTMLInputElement>) => {
-      const { name, value } = evt.target;
-      setFormData((data) => ({
-        ...data,
-        [name]: value,
-      }));
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      surname: "",
+      email: "",
+      password: "",
     },
-    [setFormData]
-  );
-
-  const handleRegister = (evt: React.FormEvent) => {
-    evt.preventDefault();
-    authService.registerUser(formData).then(() => push("/user/login"));
-  };
+    validationSchema: Yup.object({
+      name: Yup.string()
+        .min(3, "Must be 3 characters or more")
+        .required("Required"),
+      surname: Yup.string()
+        .min(3, "Must be 3 characters or more")
+        .required("Required"),
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string()
+        .min(8, "Must be 8 characters or more")
+        .required("Required"),
+    }),
+    onSubmit: (values) => {
+      authService.registerUser(values).then(() => push("/user/login"));
+    },
+  });
   return (
     <>
       <h6 className="section-title">Register</h6>
-      <form className="auth-form" onSubmit={handleRegister}>
+      <form className="auth-form" onSubmit={formik.handleSubmit}>
         <div className="form-wrap">
           <label htmlFor="name"></label>
           <input
             type="text"
-            onChange={handleFormChange}
             id="name"
-            required
             name="name"
             placeholder="Name"
-          ></input>
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+          />
+          {formik.touched.name && formik.errors.name ? (
+            <div className="error-msg">{formik.errors.name}</div>
+          ) : null}
         </div>
         <div className="form-wrap">
           <label htmlFor="surname"></label>
           <input
             type="text"
-            onChange={handleFormChange}
             id="surname"
-            required
             name="surname"
             placeholder="Surname"
-          ></input>
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.surname}
+          />
+          {formik.touched.surname && formik.errors.surname ? (
+            <div className="error-msg">{formik.errors.surname}</div>
+          ) : null}
         </div>
         <div className="form-wrap">
           <label htmlFor="email"></label>
           <input
             type="text"
-            onChange={handleFormChange}
             id="email"
-            required
             name="email"
             placeholder="Email address"
-          ></input>
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
+          />
+          {formik.touched.email && formik.errors.email ? (
+            <div className="error-msg">{formik.errors.email}</div>
+          ) : null}
         </div>
         <div className="form-wrap">
           <label htmlFor="password"></label>
           <input
-            type="password"
-            onChange={handleFormChange}
+            type="text"
             id="password"
-            required
             name="password"
             placeholder="Password"
-          ></input>
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <div className="error-msg">{formik.errors.password}</div>
+          ) : null}
         </div>
         <button type="submit" className="btn-main">
           Register
