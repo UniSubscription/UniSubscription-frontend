@@ -5,8 +5,15 @@ import "./index.scss";
 export const NotFound: React.FC = () => {
   return (
     <div className="not-found">
-      <img src={`${process.env.PUBLIC_URL}/404.jpg`} alt="Not Found" />
-      <p className="button-back">Back to <Link to="subscription"> HOME PAGE <img src={`${process.env.PUBLIC_URL}/arrow-r.svg`}/></Link></p>
+      <img src={`${process.env.PUBLIC_URL}/404.jpg`} alt="error-404" />
+      <p className="button-back">
+        Back to{" "}
+        <Link to="subscription">
+          {" "}
+          HOME PAGE{" "}
+          <img alt="not-found" src={`${process.env.PUBLIC_URL}/arrow-r.svg`} />
+        </Link>
+      </p>
     </div>
   );
 };

@@ -24,6 +24,10 @@ export class HttpClient {
   }
 
   async postWithHeader(url: string, body: any) {
-    return await axios.post(`${this.baseUrl}/${url}`, body);
+    return await axios.post(`${this.baseUrl}/${url}`, body, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    });
   }
 }

@@ -1,8 +1,8 @@
 import { Box, CircularProgress, makeStyles } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { IAppState } from "../../redux/interface";
-import { getSubscription } from "../actions";
+import { addSubscription, getSubscription } from "../actions";
 import { Navbar } from "../../Navbar";
 import { SubscriptionCard } from "./subscriptionCard";
 import { NewSubscription } from "./newSubscription";
@@ -18,7 +18,6 @@ const useStyles = makeStyles({
 export const Subscription: React.FC = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const subscription = useSelector((state: IAppState) => state.subscription);
   const { data } = subscription;
 
@@ -29,11 +28,20 @@ export const Subscription: React.FC = () => {
     dispatch(getSubscription(page, dataSize));
   }, [dispatch, page, dataSize]);
 
+  const handleAddSubmit = useCallback(
+    (evt: React.FormEvent, data) => {
+      evt.preventDefault();
+      addSubscription(data);
+      dispatch(getSubscription(page, dataSize));
+    },
+    [dataSize, page, dispatch]
+  );
+
   return (
     <div>
       <Navbar />
       <Box display="flex" justifyContent="flex-end" margin="20px 30px">
-        <NewSubscription />
+        <NewSubscription handleAddSubmit={handleAddSubmit} />
       </Box>
       {subscription.status === "PENDING" && (
         <Box display="flex" justifyContent="center">
