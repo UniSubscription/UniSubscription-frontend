@@ -1,6 +1,7 @@
 import { SUBSCRIPTION_ACTIONS } from "./consts";
 import { subscriptionService } from "../service";
 import { Dispatch } from "redux";
+import { ISubscription } from "../interface";
 
 export const getSubscription =
   (page: number, size: number) => async (dispatch: Dispatch) => {
@@ -23,3 +24,10 @@ export const getSubscription =
         });
       });
   };
+
+export const addSubscription = (data: ISubscription) => {
+  subscriptionService
+    .addSubscription(data)
+    .then((res) => res)
+    .catch((err) => err);
+};

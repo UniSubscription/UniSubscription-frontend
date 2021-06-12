@@ -1,5 +1,4 @@
 import React from "react";
-import { NewSubscription } from "../Subscription/components/newSubscription";
 import { Link } from "react-router-dom";
 import "./index.scss";
 
@@ -12,7 +11,6 @@ export const Navbar: React.FC = () => {
           <p>My Subscriptions</p>
         </div>
         <div className="user_wrapper">
-          <NewSubscription />
           <div className="user">
             <p>Zumrud Aliyeva</p>
             <Link to="/user/" className="btn_logout">
