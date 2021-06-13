@@ -13,6 +13,10 @@ class AuthService extends HttpClient {
   async registerUser(newUser: any) {
     return this.post(`register`, newUser);
   }
+
+  async getUser() {
+    return this.getWithHeafer("user");
+  }
 }
 
 export const authService = new AuthService();

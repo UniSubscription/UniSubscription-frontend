@@ -2,7 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./index.scss";
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<{ user: { id: number; fullName: string } }> = ({
+  user,
+}) => {
   return (
     <>
       <nav className="navbar">
@@ -12,7 +14,7 @@ export const Navbar: React.FC = () => {
         </div>
         <div className="user_wrapper">
           <div className="user">
-            <p>Zumrud Aliyeva</p>
+            <p>{user.fullName}</p>
             <Link to="/user/" className="btn_logout">
               <img src={`${process.env.PUBLIC_URL}/logout.svg`} alt="Logout" />
             </Link>
