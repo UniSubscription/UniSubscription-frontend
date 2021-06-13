@@ -1,5 +1,5 @@
 import { HttpClient } from "../httpClient";
-import { ILoginPayload, IRegisterPayload } from "./interface";
+import { ILoginPayload } from "./interface";
 
 class AuthService extends HttpClient {
   constructor() {

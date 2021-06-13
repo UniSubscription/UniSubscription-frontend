@@ -31,8 +31,8 @@ export const Subscription: React.FC<{
   const subscription = useSelector((state: IAppState) => state.subscription);
   const { data } = subscription;
 
-  const [page, setPage] = useState(1);
-  const [dataSize, setDataSize] = useState(10);
+  const [page] = useState(1);
+  const [dataSize] = useState(10);
 
   useEffect(() => {
     dispatch(getSubscription(page, dataSize));

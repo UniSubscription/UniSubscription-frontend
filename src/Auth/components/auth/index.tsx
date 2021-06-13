@@ -5,6 +5,7 @@ import { RegisterForm } from "./registerForm";
 import { LoginForm } from "./loginForm";
 
 export const Auth: React.FC = () => {
+  const currentPath = window.location.pathname;
   return (
     <div className="box">
       <div className="photo-box">
@@ -12,9 +13,15 @@ export const Auth: React.FC = () => {
       </div>
       <div className="form-wrapper">
         <Switch>
-        <Route path="/user/register" component={RegisterForm} />
-        <Route path="/user/login" component={LoginForm} />
-        <Redirect to="/user/login" />
+          <Route path="/user/register" component={RegisterForm} />
+          <Route path="/user/login" component={LoginForm} />
+          {currentPath === "/" ||
+          currentPath === "/user" ||
+          currentPath === "/user/" ? (
+            <Redirect to="/user/login" />
+          ) : (
+            <Redirect to="/not-found" />
+          )}
         </Switch>
       </div>
     </div>
