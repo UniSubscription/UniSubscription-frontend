@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import {
-  BrowserRouter,
-  Redirect,
-  Route,
-  Switch,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Auth } from "./Auth/components/auth";
 import { Subscription } from "./Subscription/components";
 import { NotFound } from "./not-found";
@@ -27,11 +21,6 @@ const ProtectedRoute = ({ children, ...rest }: any) => {
 
 function App() {
   const [userData, setuserData] = useState<IUserData>();
-  // const { push } = useHistory();
-  // if (sessionStorage.getItem("token") !== null) {
-  //   console.log("work");
-  //   push("/subscription");
-  // }
 
   useEffect(() => {
     authService.getUser().then(({ data }) => {
@@ -46,8 +35,7 @@ function App() {
         <ProtectedRoute path="/subscription">
           {userData !== undefined && <Subscription user={userData!} />}
         </ProtectedRoute>
-        <Route path="/not-found" component={NotFound} />
-        <Redirect to="not-found" />
+        <Route path="*" component={NotFound} />
       </Switch>
     </BrowserRouter>
   );

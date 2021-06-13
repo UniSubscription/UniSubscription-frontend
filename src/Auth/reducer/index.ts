@@ -2,8 +2,6 @@ import { AUTH } from "../actions/consts";
 import { IAction } from "../interface";
 import { IAuthInitialState } from "../interface";
 
-export default "not-error";
-
 const initialState: IAuthInitialState = {
   status: "",
   data: null,

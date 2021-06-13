@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import "date-fns";
 import {
   Button,
@@ -33,9 +33,9 @@ const useStyle = makeStyles({
   label: {
     fontSize: "12px",
   },
-  dateLabel:{
+  dateLabel: {
     fontSize: "12px",
-  }
+  },
 });
 
 export const UpdateSubscription: React.FC<{
