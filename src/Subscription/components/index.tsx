@@ -107,13 +107,15 @@ export const Subscription: React.FC<{
               );
             })}
           </Box>
-          <Box display="flex" justifyContent="center">
-            <Pagination
-              total={data?.total}
-              page={page}
-              handlePageChange={handlePageChange}
-            />
-          </Box>
+          {data?.items.length !== 0 && (
+            <Box display="flex" justifyContent="center">
+              <Pagination
+                total={data?.total}
+                page={page}
+                handlePageChange={handlePageChange}
+              />
+            </Box>
+          )}
         </>
       )}
     </div>
