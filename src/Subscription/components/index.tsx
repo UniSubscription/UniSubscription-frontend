@@ -11,6 +11,7 @@ import { Navbar } from "../../Navbar";
 import { SubscriptionCard } from "./subscriptionCard";
 import { NewSubscription } from "./newSubscription";
 import { subscriptionService } from "../service";
+import { Pagination } from "./pagination/Pagination";
 
 const useStyles = makeStyles({
   root: {
@@ -31,8 +32,8 @@ export const Subscription: React.FC<{
   const subscription = useSelector((state: IAppState) => state.subscription);
   const { data } = subscription;
 
-  const [page] = useState(1);
-  const [dataSize] = useState(10);
+  const [page, setPage] = useState(1);
+  const [dataSize] = useState(3);
 
   useEffect(() => {
     dispatch(getSubscription(page, dataSize));
@@ -76,6 +77,10 @@ export const Subscription: React.FC<{
     [page, dataSize, dispatch]
   );
 
+  const handlePageChange = useCallback((pageCount: number) => {
+    setPage(pageCount);
+  }, []);
+
   return (
     <div>
       <Navbar user={user} />
@@ -88,19 +93,28 @@ export const Subscription: React.FC<{
         </Box>
       )}
       {subscription.status === "SUCCESS" && (
-        <Box className={classes.root}>
-          {data?.items.map((item) => {
-            return (
-              <SubscriptionCard
-                handleUpdateSubmit={handleUpdateSubmit}
-                handleDelete={handleDelete}
-                handlePay={handlePay}
-                key={item.id}
-                data={item}
-              />
-            );
-          })}
-        </Box>
+        <>
+          <Box className={classes.root}>
+            {data?.items.map((item) => {
+              return (
+                <SubscriptionCard
+                  handleUpdateSubmit={handleUpdateSubmit}
+                  handleDelete={handleDelete}
+                  handlePay={handlePay}
+                  key={item.id}
+                  data={item}
+                />
+              );
+            })}
+          </Box>
+          <Box display="flex" justifyContent="center">
+            <Pagination
+              total={data?.total}
+              page={page}
+              handlePageChange={handlePageChange}
+            />
+          </Box>
+        </>
       )}
     </div>
   );

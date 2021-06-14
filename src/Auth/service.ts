@@ -3,7 +3,7 @@ import { ILoginPayload } from "./interface";
 
 class AuthService extends HttpClient {
   constructor() {
-    super("http://172.28.0.37:8080/api");
+    super("http://172.28.0.228:8080/api");
   }
 
   async loginUser(newUser: ILoginPayload) {

@@ -3,7 +3,7 @@ import { ISubscription } from "./interface";
 
 class SubscriptionService extends HttpClient {
   constructor() {
-    super("http://172.28.0.37:8080/api");
+    super("http://172.28.0.228:8080/api");
   }
 
   async getSubscription(page: number, size: number) {
