@@ -33,7 +33,7 @@ export const LoginForm: React.FC = () => {
   useEffect(() => {
     if (user.status === `SUCCESS`) {
       push("/subscription");
-    } else {
+    } else if(user.status === `ERROR`) {
       swal({
         title: "Error!",
         text: "Provided email address or password is incorrect.",
