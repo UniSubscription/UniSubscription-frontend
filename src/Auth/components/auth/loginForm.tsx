@@ -5,6 +5,7 @@ import { login } from "../../actions";
 import { IAppState } from "../../../redux/interface";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import swal from "sweetalert";
 
 export const LoginForm: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,12 @@ export const LoginForm: React.FC = () => {
   useEffect(() => {
     if (user.status === `SUCCESS`) {
       push("/subscription");
+    } else {
+      swal({
+        title: "Error!",
+        text: "Provided email address or password is incorrect.",
+        icon: "error",
+      });
     }
   }, [user.status, push]);
 
